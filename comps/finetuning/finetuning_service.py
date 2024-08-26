@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import os
-import urllib.parse
 from typing import List, Optional, Union
 
 from fastapi import BackgroundTasks, File, UploadFile
@@ -57,15 +56,9 @@ def cancel_finetuning_job(request: FineTuningJobIDRequest):
 async def upload_training_files(
     files: Optional[Union[UploadFile, List[UploadFile]]] = File(None),
 ):
-    if files:
-        if not isinstance(files, list):
-            files = [files]
-        for file in files:
-            filename = urllib.parse.quote(file.filename, safe="")
-            save_path = os.path.join(DATASET_BASE_PATH, filename)
-            await save_content_to_local_disk(save_path, file)
+    job = handle_upload_training_files_job(files)
+    return job
 
-    return {"status": 200, "message": "Training files uploaded."}
 
 
 @register_microservice(

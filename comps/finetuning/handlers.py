@@ -5,9 +5,10 @@ import os
 import random
 import time
 import uuid
+import urllib.parse
+
 from pathlib import Path
 from typing import Dict
-
 from fastapi import BackgroundTasks, HTTPException
 from pydantic_yaml import parse_yaml_raw_as, to_yaml_file
 from ray.job_submission import JobSubmissionClient
@@ -184,3 +185,14 @@ def handle_list_finetuning_checkpoints(request: FineTuningJobIDRequest):
     if os.path.exists(output_dir):
         checkpoints = os.listdir(output_dir)
     return checkpoints
+
+async def handle_upload_training_files_job(files):
+    if files:
+        if not isinstance(files, list):
+            files = [files]
+        for file in files:
+            filename = urllib.parse.quote(file.filename, safe="")
+            save_path = os.path.join(DATASET_BASE_PATH, filename)
+            await save_content_to_local_disk(save_path, file)
+
+    return {"status": 200, "message": "Training files uploaded."}
