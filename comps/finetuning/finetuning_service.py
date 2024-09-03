@@ -67,7 +67,7 @@ async def upload_training_files(file: UploadFile = File(...), purpose: str = For
     port=8015,
 )
 async def upload_training_files(
-    file: UploadFile,
+    file: UploadFile = File(...),
 ):
     return await handle_upload_training_files(file)
 
