@@ -9,7 +9,7 @@ import uuid
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
-from fastapi import BackgroundTasks, File, HTTPException, UploadFile
+from fastapi import BackgroundTasks, File, HTTPException, UploadFile, Form
 from pydantic_yaml import parse_yaml_raw_as, to_yaml_file
 from ray.job_submission import JobSubmissionClient
 
@@ -204,7 +204,11 @@ async def save_content_to_local_disk(save_path: str, content):
 
 #     return {"status": 200, "message": "Training files uploaded1."}
 
-async def handle_upload_training_files(request: UploadFileRequest, file: UploadFile):
+async def upload_file(purpose: str = Form(...), file: UploadFile = File(...)):
+    return UploadFileRequest(purpose=purpose, file=file)
+
+async def handle_upload_training_files(request: UploadFileRequest):
+    file = request.file
     filename = urllib.parse.quote(file.filename, safe="")
     save_path = os.path.join(DATASET_BASE_PATH, filename)
     await save_content_to_local_disk(save_path, file)   

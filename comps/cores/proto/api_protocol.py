@@ -828,3 +828,7 @@ class FineTuningJobList(BaseModel):
 
     If true, additional requests can be made to retrieve more jobs.
     """
+
+class UploadFileRequest(BaseModel):
+    purpose: str
+    file: UploadFile

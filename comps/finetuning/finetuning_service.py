@@ -5,7 +5,7 @@ import os
 import urllib.parse
 from typing import List, Optional, Union
 
-from fastapi import BackgroundTasks, File, Form, UploadFile
+from fastapi import BackgroundTasks, File, Form, UploadFile, Depends
 
 from comps import opea_microservices, register_microservice
 from comps.cores.proto.api_protocol import FineTuningJobIDRequest, FineTuningJobsRequest, UploadFileRequest
@@ -18,6 +18,7 @@ from comps.finetuning.handlers import (
     handle_retrieve_finetuning_job,
     handle_upload_training_files,
     save_content_to_local_disk,
+    upload_file,
 )
 
 
@@ -69,14 +70,18 @@ def cancel_finetuning_job(request: FineTuningJobIDRequest):
 # async def upload_training_files(file: UploadFile = File(...)):
 #     return await handle_upload_training_files(file)
 
+
 @register_microservice(
     name="opea_service@finetuning",
     endpoint="/v1/finetune/upload_training_files",
     host="0.0.0.0",
     port=8015,
 )
-async def upload_training_files(request: UploadFileRequest, file: UploadFile = File(...)):
-    return await handle_upload_training_files(request, file)
+async def upload_training_files(
+    request: UploadFileRequest = Depends(upload_file)
+):
+    return await handle_upload_training_files(request)
+
 
 
 
