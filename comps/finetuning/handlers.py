@@ -202,7 +202,7 @@ async def handle_upload_training_files(file: UploadFile):
     save_path = os.path.join(DATASET_BASE_PATH, filename)
     await save_content_to_local_disk(save_path, file)   
 
-    return {"status": 200, "message": "Training files uploaded."}
+    return {"status": 200, "message": "Training files uploaded1."}
 
 
 def handle_list_finetuning_checkpoints(request: FineTuningJobIDRequest):
