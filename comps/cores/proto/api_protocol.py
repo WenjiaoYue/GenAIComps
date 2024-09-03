@@ -762,8 +762,7 @@ class FineTuningJobIDRequest(BaseModel):
 class UploadFileRequest(BaseModel):
     # Ordered by official OpenAI API documentation
     # https://platform.openai.com/docs/api-reference/files/create
-    file: UploadFile = File(...)
-    # purpose: str = "fine-tune"
+    purpose: str = "fine-tune"
     """The intended purpose of the uploaded file."""
 
 
