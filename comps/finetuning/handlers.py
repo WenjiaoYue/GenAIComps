@@ -197,7 +197,7 @@ async def save_content_to_local_disk(save_path: str, content):
 #     return {"status": 200, "message": "Training files uploaded successfully."}
 
 
-async def handle_upload_training_files(file: UploadFile):
+async def handle_upload_training_files(files):
     if files:
         if not isinstance(files, list):
             files = [files]
