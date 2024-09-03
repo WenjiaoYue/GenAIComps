@@ -65,9 +65,7 @@ def cancel_finetuning_job(request: FineTuningJobIDRequest):
     host="0.0.0.0",
     port=8015,
 )
-async def upload_training_files(
-     file: UploadFile = File(...)
-):
+async def upload_training_files(file: UploadFile = File(...)):
     return await handle_upload_training_files(file)
 
 
