@@ -66,7 +66,7 @@ def cancel_finetuning_job(request: FineTuningJobIDRequest):
     port=8015,
 )
 async def upload_training_files(
-    file: UploadFile
+    file: Optional[Union[UploadFile]] = File(None),
 ):
     return await handle_upload_training_files(file)
 
