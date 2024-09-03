@@ -73,7 +73,7 @@ def cancel_finetuning_job(request: FineTuningJobIDRequest):
 
 @register_microservice(
     name="opea_service@finetuning",
-    endpoint="/v1/finetune/upload_training_files",
+    endpoint="/v1/files",
     host="0.0.0.0",
     port=8015,
 )
