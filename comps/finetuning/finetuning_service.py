@@ -62,14 +62,14 @@ async def upload_training_files(file: UploadFile = File(...), purpose: str = For
 
 @register_microservice(
     name="opea_service@finetuning",
-    endpoint="/v1/finetune/upload_training_files",
+    endpoint="/v1/finetune/upload_training_file",
     host="0.0.0.0",
     port=8015,
 )
 async def upload_training_files(
-    file: UploadFile,
+    request: UploadFileRequest
 ):
-    return await handle_upload_training_files(file)
+    return await handle_upload_training_files(request.file)
 
 
 @register_microservice(
