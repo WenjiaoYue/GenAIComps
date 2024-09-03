@@ -84,14 +84,20 @@ async def upload_training_files(
 
     return uploadFileInfo
 
-
-
 @register_microservice(
     name="opea_service@finetuning", endpoint="/v1/finetune/list_checkpoints", host="0.0.0.0", port=8015
 )
 def list_checkpoints(request: FineTuningJobIDRequest):
     checkpoints = handle_list_finetuning_checkpoints(request)
-    return checkpoints
+    return {"status": 200, "checkpoints": str(checkpoints)}
+
+
+# @register_microservice(
+#     name="opea_service@finetuning", endpoint="/v1/finetune/list_checkpoints", host="0.0.0.0", port=8015
+# )
+# def list_checkpoints(request: FineTuningJobIDRequest):
+#     checkpoints = handle_list_finetuning_checkpoints(request)
+#     return checkpoints
 
 
 # @register_microservice(

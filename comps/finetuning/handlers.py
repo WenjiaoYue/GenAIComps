@@ -226,38 +226,50 @@ async def handle_upload_training_files(request: UploadFileRequest):
     return fileInfo
 
 
+# def handle_list_finetuning_checkpoints(request: FineTuningJobIDRequest):
+#     fine_tuning_job_id = request.fine_tuning_job_id
+
+#     job = running_finetuning_jobs.get(fine_tuning_job_id)
+#     if job is None:
+#         raise HTTPException(status_code=404, detail=f"Fine-tuning job '{fine_tuning_job_id}' not found!")
+#     # filename
+#     output_dir = os.path.join(
+#         JOBS_PATH,
+#         job.id,
+#     )
+#     checkpoints = []
+#     if os.path.exists(output_dir):
+#         checkpoints = os.listdir(output_dir)
+#         # filename
+#     print('checkpoints', checkpoints)
+
+#     checkpointsResponse = FineTuningJobCheckpoint(
+#         id=f"ftckpt-{uuid.uuid4()}",
+#         created_at=int(time.time()),
+#         fine_tuned_model_checkpoint="todo",
+#         fine_tuning_job_id=fine_tuning_job_id,
+#         metrics={
+#             "step": 88,
+#             "train_loss": 0.478,
+#             "train_mean_token_accuracy": 0.924,
+#             "valid_loss": 10.112,
+#             "valid_mean_token_accuracy": 0.145,
+#             "full_valid_loss": 0.567,
+#             "full_valid_mean_token_accuracy": 0.944,
+#         },
+#         step_number=88,
+#     )
+
+#     return checkpoints
+
 def handle_list_finetuning_checkpoints(request: FineTuningJobIDRequest):
     fine_tuning_job_id = request.fine_tuning_job_id
 
     job = running_finetuning_jobs.get(fine_tuning_job_id)
     if job is None:
         raise HTTPException(status_code=404, detail=f"Fine-tuning job '{fine_tuning_job_id}' not found!")
-    # filename
-    output_dir = os.path.join(
-        JOBS_PATH,
-        job.id,
-    )
+    output_dir = os.path.join(JOBS_PATH, job.id)
     checkpoints = []
     if os.path.exists(output_dir):
         checkpoints = os.listdir(output_dir)
-        # filename
-    print('checkpoints', checkpoints)
-
-    checkpointsResponse = FineTuningJobCheckpoint(
-        id=f"ftckpt-{uuid.uuid4()}",
-        created_at=int(time.time()),
-        fine_tuned_model_checkpoint="todo",
-        fine_tuning_job_id=fine_tuning_job_id,
-        metrics={
-            "step": 88,
-            "train_loss": 0.478,
-            "train_mean_token_accuracy": 0.924,
-            "valid_loss": 10.112,
-            "valid_mean_token_accuracy": 0.145,
-            "full_valid_loss": 0.567,
-            "full_valid_mean_token_accuracy": 0.944,
-        },
-        step_number=88,
-    )
-
     return checkpoints
