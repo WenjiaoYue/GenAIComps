@@ -777,13 +777,13 @@ class FineTuningJobListRequest(BaseModel):
 
 
 class Metrics(BaseModel):
-    step: int
-    train_loss: int
-    train_mean_token_accuracy: int
-    valid_loss: int
-    valid_mean_token_accuracy: int
-    full_valid_loss: int
-    full_valid_mean_token_accuracy: int
+    step: int = 88
+    train_loss: int = 0.478
+    train_mean_token_accuracy: int = 0.924
+    valid_loss: int = 10.112
+    valid_mean_token_accuracy: int = 0.145
+    full_valid_loss: int = 0.567
+    full_valid_mean_token_accuracy: int = 0.944
 
 
 class FineTuningJobCheckpoint(BaseModel):
@@ -807,7 +807,7 @@ class FineTuningJobCheckpoint(BaseModel):
     metrics: Metrics
     """Metrics at the step number during the fine-tuning job."""
 
-    step_number: int
+    step_number: int = 88
     """The step number that the checkpoint was created at."""
 
 

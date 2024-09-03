@@ -241,9 +241,9 @@ def handle_list_finetuning_checkpoints(request: FineTuningJobIDRequest):
     if os.path.exists(output_dir):
         checkpoints = os.listdir(output_dir)
         # filename
+    print('checkpoints', checkpoints)
 
     checkpointsResponse = FineTuningJobCheckpoint(
-        object="fine_tuning.job.checkpoint",
         id=f"ftckpt-{uuid.uuid4()}",
         created_at=int(time.time()),
         fine_tuned_model_checkpoint="todo",
