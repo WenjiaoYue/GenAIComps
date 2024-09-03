@@ -89,7 +89,7 @@ async def upload_training_files(
 )
 def list_checkpoints(request: FineTuningJobIDRequest):
     checkpoints = handle_list_finetuning_checkpoints(request)
-    return {"status": 200, "checkpoints": str(checkpoints)}
+    return checkpoints
 
 
 # @register_microservice(
