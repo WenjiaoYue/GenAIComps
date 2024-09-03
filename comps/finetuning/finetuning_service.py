@@ -54,11 +54,10 @@ def cancel_finetuning_job(request: FineTuningJobIDRequest):
 #     return handle_upload_training_files(request)
 
 
-@register_microservice(name="opea_service@finetuning", endpoint="/v1/files", host="0.0.0.0", port=8015)
-async def upload_training_files(file: UploadFile = File(...), purpose: str = Form("fine-tune")):
-    request = UploadFileRequest(purpose=purpose)
-    return await handle_upload_training_files(file, request)
-
+# @register_microservice(name="opea_service@finetuning", endpoint="/v1/files", host="0.0.0.0", port=8015)
+# async def upload_training_files(file: UploadFile = File(...), purpose: str = Form("fine-tune")):
+#     request = UploadFileRequest(purpose=purpose)
+#     return await handle_upload_training_files(file, request)
 
 @register_microservice(
     name="opea_service@finetuning",
@@ -67,9 +66,17 @@ async def upload_training_files(file: UploadFile = File(...), purpose: str = For
     port=8015,
 )
 async def upload_training_files(
-    file: UploadFile = File(...),
+    files: Optional[Union[UploadFile, List[UploadFile]]] = File(None),
 ):
-    return await handle_upload_training_files(file)
+    if files:
+        if not isinstance(files, list):
+            files = [files]
+        for file in files:
+            filename = urllib.parse.quote(file.filename, safe="")
+            save_path = os.path.join(DATASET_BASE_PATH, filename)
+            await save_content_to_local_disk(save_path, file)
+
+    return {"status": 200, "message": "Training files uploaded."}
 
 
 @register_microservice(
