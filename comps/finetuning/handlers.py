@@ -223,7 +223,7 @@ async def handle_upload_training_files(request: UploadFileRequest):
         purpose="fine-tune",
     )
 
-    return {"status": 200, "message": "Training files uploaded1."}
+    return fileInfo
 
 
 def handle_list_finetuning_checkpoints(request: FineTuningJobIDRequest):
