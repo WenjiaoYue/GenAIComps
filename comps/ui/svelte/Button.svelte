@@ -6,7 +6,7 @@
   
   <button 
     on:click={onClick} 
-    style="padding: 10px; background-color: blue; color: white; border: none; border-radius: 5px;">
+    style="padding: 100px; background-color: blue; color: white; border: none; border-radius: 5px;">
     {label}
   </button>
   
