@@ -1,0 +1,7 @@
+{
+  "name": "genai-comps",
+  "version": "1.0.0",
+  "workspaces": ["comps/ui/svelte"],
+  "files": ["comps/ui/svelte"],
+  "license": "MIT"
+}
