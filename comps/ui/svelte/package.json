@@ -11,6 +11,9 @@
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write ."
   },
+  "exports": {
+    "./components": "./src/components"
+  },
   "peerDependencies": {
     "svelte": "^4.0.0"
   },
