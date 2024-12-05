@@ -2,9 +2,7 @@
   "name": "@your-org/ui-template",
   "version": "1.0.0",
   "private": true,
-  "main": "components/index.js",
   "exports": {
-    ".": "./components/index.js",
     "./Header.svelte": "./components/Header.svelte",
     "./Button.svelte": "./components/Button.svelte"
   },
